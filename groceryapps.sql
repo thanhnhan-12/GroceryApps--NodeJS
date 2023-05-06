@@ -10,6 +10,8 @@ Create table tblUser(
     passWord varchar(50)
 );
 
+-- drop table tblUser
+
 -- TABLE CUSTOMER
 Create table tblCustomer (
 	customerID varchar(7) primary key  ,
