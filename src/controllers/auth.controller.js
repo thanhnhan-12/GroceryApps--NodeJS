@@ -25,6 +25,25 @@ const authController = {
       });
     }
   }),
+
+  register: catchAsync(async (req, res, next) => {
+    const { fullName, email, password } = req.body;
+    console.log("Body: " , req.body)
+    const { users, message } = await authService.register(
+        req.body
+    );
+
+    if (users) {
+      const { accessToken } = tokenService.generateToken(users);
+
+      res.send({
+        users,
+
+        accessToken,
+      });
+    }
+  }),
+
 };
 
 

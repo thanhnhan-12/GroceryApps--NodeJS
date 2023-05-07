@@ -7,7 +7,9 @@ Use GroceryApps;
 -- TABLE USER
 Create table tblUser(
 	userName varchar(25),
-    passWord varchar(50)
+    passWord varchar(255),
+    fullName varchar(50) CHARACTER SET UTF8MB4,
+    email varchar(255)
 );
 
 -- drop table tblUser
@@ -278,9 +280,16 @@ VALUES	('IH00001', 'P00001', 100, '2022-01-01', 20000),
 
 -- TABLE IMAGES
 Create table tblImages (
-	imageID int primary key ,
-    imageName varchar(255)
+	imageID int auto_increment primary key ,
+    imageURL varchar(255),
+    productID varchar(7),
+    Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO tblImages
+VALUES (),
+
+-- drop table tblImages;
 
 -- TABLE PROVINCE
 CREATE TABLE tblProvince (
