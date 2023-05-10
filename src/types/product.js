@@ -8,3 +8,5 @@ export const product = {
     productStatus: String,
     
 }
+
+export const Role = 'ADMIN' | 'USER';

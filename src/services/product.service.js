@@ -9,6 +9,6 @@ const productService = {
   product: async (body) => {
     const { productName , price, unit } = body;
     console.log({ body });
-    const user = await queryDb("select * from tblproduct where email=?", [email]);
+    const user = await queryDb("select * from tblproduct where productID=?", [email]);
   },
 };

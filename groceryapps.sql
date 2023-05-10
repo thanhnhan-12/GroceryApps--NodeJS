@@ -286,8 +286,21 @@ Create table tblImages (
     Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO tblImages
-VALUES (),
+INSERT INTO tblImages(imageURL, productID)
+VALUES	
+('https://saphavi.eu/cdn/shop/products/795F3E45-6423-4A69-8346-7A3AB1529481.jpg?v=1623355777', 'P00004'),
+('https://product.hstatic.net/1000400508/product/2d1f507137c3a97accf2d543e2427b28_75c6271d6e0a46429542c22996f55e22_ba902b36d58e4a1291b522213c05c77c_grande.jpg
+', 'P00002'),
+('https://cdn.tgdd.vn/Files/2019/12/27/1228674/cac-loai-mi-goi-han-quoc-ngon-duoc-gioi-tre-yeu-thich-202112291439252440.jpg', 'P00004'),
+('https://cdn.tgdd.vn/Products/Images/2443/125398/loc-6-lon-nuoc-ngot-coca-cola-320ml-1.jpg', 'P00003'),
+('https://vn-live-01.slatic.net/p/1bad0f3baf434de8924ce2371c8f2cca.jpg', 'P00007'),
+('https://www.vinamilk.com.vn/sua-tuoi-vinamilk/wp-content/uploads/2022/12/Smart-menu-NH_cum-packshot.png', 'P00001'),
+('https://salt.tikicdn.com/cache/w1200/ts/product/79/35/58/57d299f7d79449d7611bfd0aec5d7b9e.jpg', 'P00005'),
+('https://product.hstatic.net/1000074072/product/nspn-pic1_92074dcfeb834ef9b2b3e55fb8ebcba1_master.png', 'P00006'),
+('https://product.hstatic.net/1000074072/product/nspn-pic2_4736e922aefe4a3fae37227878673b0b_master.png', 'P00005'),
+('https://www.vinamilk.com.vn/sua-tuoi-vinamilk/wp-content/uploads/2022/03/SN_b0.png', 'P00001'),
+('https://nhaphanphoihangtieudung.net/kcfinder/upload/images/sua-ong-tho-trang-380g-thung-48-hop-700x467-1.jpg', 'P00007'),
+('https://vtv1.mediacdn.vn/zoom/700_438/2023/2/15/pink150223-16764357215311091538340-crop-16764360563321377681471.jpg', 'P00002');
 
 -- drop table tblImages;
 
