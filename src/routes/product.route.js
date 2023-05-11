@@ -1,3 +1,10 @@
 import express from 'express';
-import authController from '../controllers/product.controller';
+import productController from '../controllers/product.controller';
 const router = express.Router();
+
+router.get(
+  '/product',
+  productController.getProductService
+)
+
+export default router

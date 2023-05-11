@@ -2,7 +2,7 @@ Create Database GroceryApps;
 
 Use GroceryApps;
 
--- drop database groceryapps
+-- drop database groceryapps;
 
 -- TABLE USER
 Create table tblUser(
@@ -59,19 +59,20 @@ VALUES 	('SUP001', 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company
 -- TABLE CATEGORY
 Create table tblCategory (
 	categoryID varchar(11) primary key ,
-    categoryName varchar(50) CHARACTER SET UTF8MB4
+    categoryName varchar(50) CHARACTER SET UTF8MB4,
+    categoryImage varchar(255)
 );
 
 INSERT INTO tblCategory 
-VALUES	('CA0001', 'Đồ uống có cồn'),
-		('CA0002', 'Nước giải khát'),
-		('CA0003', 'Thực phẩm đóng hộp'),
-		('CA0004', 'Mì ăn liền'),
-		('CA0005', 'Thuốc lá'),
-		('CA0006', 'Gia vị'),
-		('CA0007', 'Khăn lau miệng'),
-        ('CA0008', 'Nước mắm'),
-		('CA0009', 'Dầu gội');
+VALUES	('CA0001', 'Đồ uống có cồn', 'https://vtv1.mediacdn.vn/zoom/550_339/2019/3/4/bigstock-alcoholic-drinks-emerging-europe-1551665990593522364791.jpg'),
+		('CA0002', 'Nước giải khát', 'https://tiensinuoc.com/wp-content/uploads/2022/02/dai-ly-nuoc-giai-khat-ct-tnhh-binh-minh.jpg'),
+		('CA0003', 'Thực phẩm đóng hộp', 'https://efoodvietnam.com/wp-content/uploads/2022/11/thuc-pham-dong-hop-va-nhung-dieu-can-biet.jpg'),
+		('CA0004', 'Mì ăn liền', 'https://snl-log.com/wp-content/uploads/2020/04/SNL-V%E1%BA%ADn-chuy%E1%BB%83n-m%C3%AC-g%C3%B3i-xu%E1%BA%A5t-kh%E1%BA%A9u.jpg'),
+		('CA0005', 'Thuốc lá', ''),
+		('CA0006', 'Gia vị', 'https://cdn.tgdd.vn/2020/12/CookProduct/thumbcn-1200x676-9.jpg'),
+		('CA0007', 'Khăn lau miệng', 'https://cdn.tgdd.vn/Files/2022/05/24/1434536/review-khan-giay-pulppy-co-tot-khong-gia-bao-nhieu-202205240722077776.jpg'),
+        ('CA0008', 'Nước mắm', ''),
+		('CA0009', 'Dầu gội', '');
 
 -- drop table tblCategory;
 
@@ -118,13 +119,13 @@ Create table tblWareHouse (
 );
 
 INSERT INTO tblWareHouse 
-VALUES ('P00001', 'Sữa tươi Vinamilk', 100, 50, 50, '2023-05-02 10:00:00', NULL),
-       ('P00002', 'Coca-cola', 200, 100, 100, '2023-05-01 15:00:00', '2023-05-02 09:00:00'),
-       ('P00003', 'Trứng gà', 500, 400, 100, '2023-05-02 11:00:00', NULL),
-       ('P00004', 'Mỳ tôm', 1000, 800, 200, '2023-05-01 12:00:00', '2023-05-02 14:00:00'),
-       ('P00005', 'Sữa đậu nành Meizan', 300, 200, 100, '2023-05-02 08:00:00', NULL),
-       ('P00006', 'Khoai tây chiên', 400, 300, 100, '2023-05-02 13:00:00', NULL),
-       ('P00007', 'Bánh Oreo', 200, 100, 100, '2023-05-01 17:00:00', '2023-05-02 10:30:00');
+VALUES ('P00001', 'Sữa tươi Vinamilk', 100, 50, 50, '2023-01-01 10:00:00', NULL),
+       ('P00002', 'Coca-cola', 200, 100, 100, '2023-01-01 15:00:00', '2023-01-03 09:00:00'),
+       ('P00003', 'Trứng gà', 500, 400, 100, '2023-01-02 11:00:00', NULL),
+       ('P00004', 'Mỳ tôm', 1000, 800, 200, '2023-01-01 12:00:00', '2023-01-07 14:00:00'),
+       ('P00005', 'Sữa đậu nành Meizan', 300, 200, 100, '2023-01-02 08:00:00', NULL),
+       ('P00006', 'Khoai tây chiên', 400, 300, 100, '2023-01-12 13:00:00', NULL),
+       ('P00007', 'Bánh Oreo', 200, 100, 100, '2023-01-10 17:00:00', '2023-01-14 10:30:00');
 
 -- drop table tblWareHouse;
 
