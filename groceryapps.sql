@@ -68,11 +68,12 @@ VALUES	('CA0001', 'Đồ uống có cồn', 'https://vtv1.mediacdn.vn/zoom/550_3
 		('CA0002', 'Nước giải khát', 'https://tiensinuoc.com/wp-content/uploads/2022/02/dai-ly-nuoc-giai-khat-ct-tnhh-binh-minh.jpg'),
 		('CA0003', 'Thực phẩm đóng hộp', 'https://efoodvietnam.com/wp-content/uploads/2022/11/thuc-pham-dong-hop-va-nhung-dieu-can-biet.jpg'),
 		('CA0004', 'Mì ăn liền', 'https://snl-log.com/wp-content/uploads/2020/04/SNL-V%E1%BA%ADn-chuy%E1%BB%83n-m%C3%AC-g%C3%B3i-xu%E1%BA%A5t-kh%E1%BA%A9u.jpg'),
-		('CA0005', 'Thuốc lá', ''),
+		('CA0005', 'Xả vải', 'https://bizweb.dktcdn.net/thumb/grande/100/469/765/products/as-6c322e55-2caa-4605-9436-9ed63591662c.jpg?v=1670312604840'),
 		('CA0006', 'Gia vị', 'https://cdn.tgdd.vn/2020/12/CookProduct/thumbcn-1200x676-9.jpg'),
 		('CA0007', 'Khăn lau miệng', 'https://cdn.tgdd.vn/Files/2022/05/24/1434536/review-khan-giay-pulppy-co-tot-khong-gia-bao-nhieu-202205240722077776.jpg'),
-        ('CA0008', 'Nước mắm', ''),
-		('CA0009', 'Dầu gội', '');
+        ('CA0008', 'Nước tương', 'https://daotaobeptruong.vn/wp-content/uploads/2019/07/nuoc_tuong_la_gi.png'),
+		('CA0009', 'Vở', 'https://ngoclanvpp.vn/User_folder_upload/vppngoclan/images/Vo-Campus-Re%CC%81pe%CC%81te%CC%81-do.jpg'),
+        ('CA0010', 'Bút', 'https://ptphucthinh.com/wp-content/uploads/2018/04/BUT-GEL-BUT-NUOC-1.jpg');
 
 -- drop table tblCategory;
 

@@ -6,22 +6,15 @@ var _ = require('lodash');
 var bcrypt = require('bcrypt');
 
 const productService = {
-  getProductService: async (body) => {
-    const { productID, productName, price, unit, expirationDate } = body;
-    console.log({ body });
-    const user = await queryDb('select * from tblproduct where productID=?', [
-      productID,
-    ]);
-
-    if (_.isEmpty(user))
+  getProductService: async () => {
+    const product = await queryDb(
+      'select productID, productName, price, expirationDate, unit from tblproduct',
+    );
+    // console.log({product});
+    if (_.isEmpty(product))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy sản phẩm');
-
-
+    return product;
   },
-
-
-
 };
-
 
 export default productService;
