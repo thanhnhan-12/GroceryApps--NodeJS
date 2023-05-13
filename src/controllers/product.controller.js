@@ -6,13 +6,19 @@ import httpStatus from "http-status";
 const productController = {
   getProductService: catchAsync(
     async function(req, res, next) {
-    const servicesProduct = await productService.getProductService();
+    const productNew = await productService.getProductService();
 
-    return res.status(httpStatus.OK).send({ servicesProduct });
+    return res.status(httpStatus.OK).send({ productNew });
 
-  })
+  }),
 
-  
+  getProductSellingService: catchAsync(async function(req, res, next) {
+    const productSelling = await productService.getProductSellingService();
+
+    return res.status(httpStatus.OK).send({ productSelling });
+
+  }),
+
 }
 
 export default productController;

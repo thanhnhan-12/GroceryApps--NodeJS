@@ -38,7 +38,7 @@ Values ('CUS001', 'Joel Glazer', '0905288747', 'joel@gmail.com', 'US', '2001-02-
 
 -- TABLE SUPPLIER
 Create table tblSupplier (
-	supplierID varchar(7) primary key ,
+	customerID varchar(7) primary key references tblCustomer(customerID) ON DELETE CASCADE ON UPDATE CASCADE ,
     supplierName varchar(50) CHARACTER SET UTF8MB4 ,
     supplierAddress varchar(50) CHARACTER SET UTF8MB4,
     supplierPhone varchar(11) unique,
@@ -46,13 +46,13 @@ Create table tblSupplier (
 );
 
 INSERT INTO tblSupplier
-VALUES 	('SUP001', 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company.com'),
-		('SUP002', 'Pepsi', '456 Broadway, City B', '0987654321', 'xyz@corp.com'),
-		('SUP003', 'Telio', '789 Park Ave, City C', '0935198477', '123@inc.com'),
-		('SUP004', 'Wabi2b', '1010 Industrial Blvd, City D', '0935662583', 'supplies@co.com'),
-		('SUP005', 'Mỳ gói', '555 Fifth Ave, City E', '0905267489', 'global@enterprises.com'),
-		('SUP006', 'Huda', '777 Seventh St, City F', '0235977856', 'jj@supplies.com'),
-		('SUP007', 'Larue', '888 Best Blvd, City G', '0905222437', 'best@inc.com');
+VALUES 	('CUS001', 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company.com'),
+		('CUS002', 'Pepsi', '456 Broadway, City B', '0987654321', 'xyz@corp.com'),
+		('CUS003', 'Telio', '789 Park Ave, City C', '0935198477', '123@inc.com'),
+		('CUS004', 'Wabi2b', '1010 Industrial Blvd, City D', '0935662583', 'supplies@co.com'),
+		('CUS005', 'Mỳ gói', '555 Fifth Ave, City E', '0905267489', 'global@enterprises.com'),
+		('CUS006', 'Huda', '777 Seventh St, City F', '0235977856', 'jj@supplies.com'),
+		('CUS007', 'Larue', '888 Best Blvd, City G', '0905222437', 'best@inc.com');
 
 -- drop table tblSupplier;
 
@@ -77,6 +77,28 @@ VALUES	('CA0001', 'Đồ uống có cồn', 'https://vtv1.mediacdn.vn/zoom/550_3
 
 -- drop table tblCategory;
 
+-- TABLE WAREHOUSE
+Create table tblWareHouse (
+	wareHouseID varchar(7) primary key ,
+    wareHouseName varchar(30) CHARACTER SET UTF8MB4,
+    importQuantity int,
+    exportQuantity int,
+    stockQuantity int,
+    dateImport datetime,
+    dateExport datetime
+);
+
+INSERT INTO tblWareHouse 
+VALUES ('WH0001', 'Sữa tươi', 100, 50, 50, '2023-01-01 10:00:00', NULL),
+       ('WH0002', 'Nước uống', 200, 100, 100, '2023-01-01 15:00:00', '2023-01-03 09:00:00'),
+       ('WH0003', 'Trứng', 500, 400, 100, '2023-01-02 11:00:00', NULL),
+       ('WH0004', 'Mỳ', 1000, 800, 200, '2023-01-01 12:00:00', '2023-01-07 14:00:00'),
+       ('WH0005', 'Dầu đậu nành', 300, 200, 100, '2023-01-02 08:00:00', NULL),
+       ('WH0006', 'Giấy', 400, 300, 100, '2023-01-12 13:00:00', NULL),
+       ('WH0007', 'Bánh', 200, 100, 100, '2023-01-10 17:00:00', '2023-01-14 10:30:00');
+
+-- drop table tblWareHouse;
+
 -- TABLE PRODUCT
 Create table tblProduct (
 	productID varchar(7) primary key ,
@@ -87,48 +109,22 @@ Create table tblProduct (
     expirationDate datetime,
     unit varchar(30),
     productDescription varchar(255) CHARACTER SET UTF8MB4,
-    productStatus varchar(2) CHARACTER SET UTF8MB4,
     categoryID varchar(11),
-    categoryName varchar(30) CHARACTER SET UTF8MB4,
-    supplierID varchar(7),
-    supplierName varchar(50) CHARACTER SET UTF8MB4,
-    Foreign key (categoryID) references tblCategory(categoryID) ON DELETE CASCADE ON UPDATE CASCADE ,
-    Foreign key (supplierID) references tblSupplier(supplierID) ON DELETE CASCADE ON UPDATE CASCADE
+    wareHouseID varchar(7),
+    foreign key (wareHouseID) references tblWareHouse(wareHouseID) ON DELETE CASCADE ON UPDATE CASCADE ,
+    Foreign key (categoryID) references tblCategory(categoryID) ON DELETE CASCADE ON UPDATE CASCADE 
 );
 
 INSERT INTO tblProduct 
-VALUES	('P00001', 'Sữa tươi Vinamilk 180ml', 8000, 100, 50, '2023-05-31 23:59:59', 'Hộp', 'Sữa tươi nguyên kem', '1', 'CA0001', 'Sữa tươi', 'SUP001', 'Vinamilk'),
-		('P00002', 'Bánh quy Oreo', 15000, 200, 80, '2024-12-31 23:59:59', 'Hộp', 'Bánh quy kem socola', '1', 'CA0002', 'Bánh quy', 'SUP002', 'Mondelez'),
-		('P00003', 'Nước ngọt Coca Cola 500ml', 12000, 150, 50, '2023-09-30 23:59:59', 'Lon', 'Nước ngọt Coca Cola', '1', 'CA0003', 'Nước ngọt', 'SUP003', 'Coca Cola'),
-		('P00004', 'Bia Sài Gòn 333 330ml', 15000, 100, 30, '2024-06-30 23:59:59', 'Lon', 'Bia Sài Gòn 333', '1', 'CA0004', 'Bia', 'SUP004', 'Sài Gòn 333'),
-		('P00005', 'Cháo hạt dinh dưỡng Nutifood', 20000, 80, 20, '2023-11-30 23:59:59', 'Hộp', 'Cháo hạt dinh dưỡng Nutifood', '1', 'CA0005', 'Cháo', 'SUP005', 'Nutifood'),
-		('P00006', 'Súp đặc chế Knorr 60g', 7000, 150, 70, '2024-04-30 23:59:59', 'Gói', 'Súp đặc chế Knorr', '1', 'CA0006', 'Súp', 'SUP006', 'Knorr'),
-		('P00007', 'Sữa đặc Nestle hộp 397g', 22000, 60, 15, '2024-10-31 23:59:59', 'Hộp', 'Sữa đặc Nestle', '1', 'CA0001', 'Sữa tươi', 'SUP007', 'Nestle');
+VALUES	('P00001', 'Sữa tươi Vinamilk 180ml', 8000, 100, 50, '2023-05-31 23:59:59', 'Hộp', 'Sữa tươi nguyên kem', 'CA0001', 'WH0001'),
+		('P00002', 'Bánh quy Oreo', 15000, 200, 80, '2024-12-31 23:59:59', 'Hộp', 'Bánh quy kem socola', 'CA0002', 'WH0002'),
+		('P00003', 'Nước ngọt Coca Cola 500ml', 12000, 150, 50, '2023-09-30 23:59:59', 'Lon', 'Nước ngọt Coca Cola', 'CA0003', 'WH0003'),
+		('P00004', 'Bia Sài Gòn 333 330ml', 15000, 100, 30, '2024-06-30 23:59:59', 'Lon', 'Bia Sài Gòn 333', 'CA0004', 'WH0004'),
+		('P00005', 'Cháo hạt dinh dưỡng Nutifood', 20000, 80, 20, '2023-11-30 23:59:59', 'Hộp', 'Cháo hạt dinh dưỡng Nutifood', 'CA0005', 'WH0005'),
+		('P00006', 'Súp đặc chế Knorr 60g', 7000, 150, 70, '2024-04-30 23:59:59', 'Gói', 'Súp đặc chế Knorr', 'CA0006', 'WH0006'),
+		('P00007', 'Sữa đặc Nestle hộp 397g', 22000, 60, 15, '2024-10-31 23:59:59', 'Hộp', 'Sữa đặc Nestle', 'CA0001', 'WH0007');
 
 -- drop table tblProduct;
-
--- TABLE WAREHOUSE
-Create table tblWareHouse (
-	productID varchar(7) primary key ,
-    productName varchar(30) CHARACTER SET UTF8MB4,
-    importQuantity int,
-    exportQuantity int,
-    stockQuantity int,
-    dateImport datetime,
-    dateExport datetime,
-    Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-INSERT INTO tblWareHouse 
-VALUES ('P00001', 'Sữa tươi Vinamilk', 100, 50, 50, '2023-01-01 10:00:00', NULL),
-       ('P00002', 'Coca-cola', 200, 100, 100, '2023-01-01 15:00:00', '2023-01-03 09:00:00'),
-       ('P00003', 'Trứng gà', 500, 400, 100, '2023-01-02 11:00:00', NULL),
-       ('P00004', 'Mỳ tôm', 1000, 800, 200, '2023-01-01 12:00:00', '2023-01-07 14:00:00'),
-       ('P00005', 'Sữa đậu nành Meizan', 300, 200, 100, '2023-01-02 08:00:00', NULL),
-       ('P00006', 'Khoai tây chiên', 400, 300, 100, '2023-01-12 13:00:00', NULL),
-       ('P00007', 'Bánh Oreo', 200, 100, 100, '2023-01-10 17:00:00', '2023-01-14 10:30:00');
-
--- drop table tblWareHouse;
 
 -- TABLE ORDER
 Create table tblOrder (
@@ -174,111 +170,16 @@ VALUES
 	('OD0004', 'ORD003', 4, 20, 'Đang giao', 'P00005'),
 	('OD0005', 'ORD003', 2, 11, 'Đã giao', 'P00004'),
 	('OD0006', 'ORD003', 1, 6, 'Đã giao', 'P00006');
+    
+INSERT INTO tblOrderDetail 
+VALUES 
+	('OD0007', 'ORD001', 2, 5, 'Đã giao', 'P00004');
+    
+INSERT INTO tblOrderDetail 
+VALUES 
+	('OD0008', 'ORD001', 2, 7, 'Đã giao', 'P00001');
 
 -- drop table tblOrderDetail;
-
--- TABLE BILL
-Create table tblBill (
-	bill_ID varchar(7) primary key ,
-    productName varchar(30) CHARACTER SET UTF8MB4,
-    quantityProduct int,
-    price decimal(10,2),
-    payBill double,
-    invoiceDate date,
-    invoiceStatus varchar(30) CHARACTER SET UTF8MB4,
-    customerID varchar(7),
-    customerName varchar(20) CHARACTER SET UTF8MB4,
-    productID varchar(7),
-	Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE,
-    Foreign key (customerID) references tblCustomer(customerID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-INSERT INTO tblBill
-VALUES	('B00001', 'Sữa tươi Vinamilk', 5, 15000, 75000, '2023-05-02', 'Đã thanh toán', 'CUS001', 'Pep Guardiola', 'P00001'),
-		('B00002', 'Bánh mì trứng', 10, 5000, 50000, '2023-05-02', 'Đã thanh toán', 'CUS004', 'Tom Cruise', 'P00003'),
-		('B00003', 'Nước suối Lavie', 20, 10000, 200000, '2023-05-02', 'Đã thanh toán', 'CUS006', 'Jurgen Kloop', 'P00005');
-
--- drop table tblBill;
-
--- TABLE BILL DETAIL
-Create table tblBillDetail (
-	billDetailID varchar(7) primary key ,
-    bill_ID varchar(7),
-    quantityProduct int,
-    price decimal(10,2),
-    productID varchar(7),
-    Foreign key (bill_ID) references tblBill(bill_ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-INSERT INTO tblBillDetail 
-VALUES	('BD0001', 'B00001', 5, 15000, 'P00001'),
-		('BD0002', 'B00002', 10, 5000, 'P00003'),
-		('BD0003', 'B00003', 20, 10000, 'P00005');
-
--- drop table tblBillDetail;
-
--- TABLE REVENUE
-Create table tblRevenue (
-	revenueID varchar(11) PRIMARY KEY,
-	bill_ID varchar(7),
-    invoiceDate date,
-    total_InvoiceValue double,
-	customerID varchar(7)  ,
-    totalPayment double,
-    paymentMethod varchar(20) CHARACTER SET UTF8MB4,
-    paymentStatus varchar(30) CHARACTER SET UTF8MB4,
-    datePayment datetime,
-    Foreign key (customerID) references tblCustomer(customerID) ON DELETE CASCADE ON UPDATE CASCADE,
-    Foreign key (bill_ID) references tblBill(bill_ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-INSERT INTO tblRevenue 
-VALUES 	('R00001', 'B00001', '2023-05-02', 22000, 'CUS001', 22000, 'Cash', 'Đã thanh toán', '2023-05-02 10:30:00'),
-		('R00002', 'B00002', '2023-05-02', 55000, 'CUS005', 55000, 'Cash', 'Đã thanh toán', '2023-05-02 10:30:00'),
-        ('R00003', 'B00002', '2023-05-02', 95000, 'CUS004', 95000, 'Cash', 'Đã thanh toán', '2023-05-02 10:30:00'),
-        ('R00004', 'B00003', '2023-05-02', 45000, 'CUS001', 45000, 'Cash', 'Đã thanh toán', '2023-05-02 10:30:00');
-
--- drop table tblRevenue;
-
--- TABLE SALE HISTORY
-Create table tblSaleHistory (
-	saleHistoryID varchar(7) PRIMARY KEY,
-	productID varchar(7) ,
-    exportQuantity int,
-    price varchar(10),
-    saleDate datetime,
-    bill_ID varchar(7),
-    customerID varchar(7),
-    customerName varchar(20) CHARACTER SET UTF8MB4,
-    Foreign key (customerID) references tblCustomer(customerID) ON DELETE CASCADE ON UPDATE CASCADE,
-    Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-INSERT INTO tblSaleHistory
-VALUES	('SH0001', 'P00001', 3, '20000', '2023-04-30 10:30:00', 'B00001', 'CUS001', 'Joel Glazer'),
-		('SH0002', 'P00002', 2, '15000', '2023-04-30 11:45:00', 'B00001', 'CUS001', 'Tom Hanks'),
-		('SH0003', 'P00001', 1, '22000', '2023-05-01 09:15:00', 'B00002', 'CUS002', 'Erik Ten Hag');
-
--- drop table tblSaleHistory;
-
--- TABLE IMPORT HISTORY
-Create table tblImportHistory (
-	importHistoryID varchar(7) primary key,
-	productID varchar(7) ,
-    importQuantity int,
-    dateImport datetime,
-    price DECIMAL(10, 2),
-    Foreign key (productID) references tblProduct(productID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-INSERT INTO tblImportHistory 
-VALUES	('IH00001', 'P00001', 100, '2022-01-01', 20000),
-		('IH00002', 'P00002', 50, '2022-01-02', 41000),
-        ('IH00004', 'P00003', 75, '2022-01-03', 14000),
-		('IH00003', 'P00005', 75, '2022-01-03', 18000);
-
--- drop table tblImportHistory;
 
 -- TABLE IMAGES
 Create table tblImages (
