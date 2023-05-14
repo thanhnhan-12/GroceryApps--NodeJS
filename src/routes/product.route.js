@@ -6,4 +6,6 @@ router.get('/get-product', productController.getProductService);
 
 router.get('/get-productselling', productController.getProductSellingService);
 
+router.get('/get-productpopular', productController.getProductPopularService);
+
 export default router;

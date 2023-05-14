@@ -34,6 +34,22 @@ const productService = {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy sản phẩm');
     return productSelling;
   },
+
+  getProductPopularService: async () => {
+    const productPopular = await queryDb(
+      `SELECT Pro.productID, productName, price, expirationDate, unit, COUNT(Od.quantity) as quantity_sold, Img.imageURL 
+      FROM tblproduct AS Pro 
+      JOIN tblorderdetail AS Od ON Pro.productID = Od.productID 
+      JOIN tblimages AS Img ON Pro.productID = Img.productID 
+      GROUP BY Pro.productID 
+      ORDER BY quantity_sold DESC 
+      LIMIT 10;`,
+    );
+
+    if (_.isEmpty(productPopular))
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy sản phẩm');
+    return productPopular;
+  },
 };
 
 export default productService;

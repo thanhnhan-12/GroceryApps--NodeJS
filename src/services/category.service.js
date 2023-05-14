@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt');
 
 const categoryService = {
   getCategoryService: async () => {
-    const category = await queryDb('select * from tblcategory');
+    const category = await queryDb(`Select categoryName, categoryImage from tblcategory`);
     // console.log({category});
     if (_.isEmpty(category))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy danh mục');
