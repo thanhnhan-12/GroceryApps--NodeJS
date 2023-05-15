@@ -1,6 +1,7 @@
 import authRoute from './auth.route';
 import productRoute from './product.route';
 import categoryRoute from './category.route';
+import deliveryRoute from './delivery.route';
 
 import express from 'express';
 
@@ -22,6 +23,11 @@ const defaultRoutes = [
   {
     path: '/category',
     route: categoryRoute,
+  },
+
+  {
+    path: '/delivery',
+    route: deliveryRoute,
   },
 ];
 

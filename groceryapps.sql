@@ -259,6 +259,18 @@ VALUES	(1, 3, 'An Hải Bắc'),
 
 -- drop table tblWards;
 
+SELECT DISTINCT P.*, D.*, W.*
+FROM tblprovince AS P
+INNER JOIN tbldistrict AS D ON P.provinceID = D.provinceID
+INNER JOIN tblwards AS W ON P.provinceID = W.provinceID AND D.districtID = W.districtID;
+
+Select P.nameProvince, D.nameDistrict, W.nameWard 
+       From tblprovince as P, tbldistrict as D, tblwards as W 
+       Where P.provinceID = D.provinceID and 
+             P.provinceID = W.provinceID and
+             D.districtID = W.districtID;
+
+
 
 
 
