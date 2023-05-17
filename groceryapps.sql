@@ -42,17 +42,19 @@ Create table tblSupplier (
     supplierName varchar(50) CHARACTER SET UTF8MB4 ,
     supplierAddress varchar(50) CHARACTER SET UTF8MB4,
     supplierPhone varchar(11) unique,
-    supplierEmail varchar(50) unique
+    supplierEmail varchar(50) unique,
+    suppImage varchar(255)
 );
 
 INSERT INTO tblSupplier
-VALUES 	('CUS001', 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company.com'),
-		('CUS002', 'Pepsi', '456 Broadway, City B', '0987654321', 'xyz@corp.com'),
-		('CUS003', 'Telio', '789 Park Ave, City C', '0935198477', '123@inc.com'),
-		('CUS004', 'Wabi2b', '1010 Industrial Blvd, City D', '0935662583', 'supplies@co.com'),
-		('CUS005', 'Mỳ gói', '555 Fifth Ave, City E', '0905267489', 'global@enterprises.com'),
-		('CUS006', 'Huda', '777 Seventh St, City F', '0235977856', 'jj@supplies.com'),
-		('CUS007', 'Larue', '888 Best Blvd, City G', '0905222437', 'best@inc.com');
+VALUES 	('CUS001', 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company.com', 'https://static.vecteezy.com/system/resources/previews/007/978/653/original/coca-cola-popular-drink-brand-logo-vinnytsia-ukraine-may-16-202-free-vector.jpg' ),
+		('CUS002', 'Pepsi', '456 Broadway, City B', '0987654321', 'xyz@corp.com', 'https://static.vecteezy.com/system/resources/previews/007/978/618/original/pepsi-popular-drink-brand-logo-vinnytsia-ukraine-may-16-202-free-vector.jpg'),
+		('CUS003', 'Telio', '789 Park Ave, City C', '0935198477', '123@inc.com', 'https://cdn.techinasia.com/data/images/dKUpDjIFvZwS2XQroWo4isM9ckoywNrOdRVeybwh.png'),
+		('CUS004', 'Wabi2b', '1010 Industrial Blvd, City D', '0935662583', 'supplies@co.com', 'https://play-lh.googleusercontent.com/HRRTDjyiT-T09g1V9bSjb_ZuL9-ZuMcl_oW45Bn5u1ZW0JHpEr6yA0DwRV1cOAAALiUK'),
+		('CUS005', 'Omachi', '555 Fifth Ave, City E', '0905267489', 'global@enterprises.com', 'https://logowik.com/content/uploads/images/omachi-saga7671.logowik.com.webp' ),
+		('CUS006', 'Bút bi', '777 Seventh St, City F', '0235977856', 'jj@supplies.com', 'https://vietworld.world/Userfiles/Upload/images/Download/2017/5/29/e80c2904036e416899c4342c1acf485e.JPG'),
+		('CUS007', 'Larue', '888 Best Blvd, City G', '0905222437', 'best@inc.com', 'https://brademar.com/wp-content/uploads/2022/09/Larue-Logo-PNG.png'),
+        ('CUS008', 'TH True Milk', 'TH Best Milk, City Blue', '0905781437', 'milk@inc.com', 'https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-th-true-milk-inkythuatso-01-18-15-23-19.jpg');
 
 -- drop table tblSupplier;
 
@@ -60,20 +62,21 @@ VALUES 	('CUS001', 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company
 Create table tblCategory (
 	categoryID varchar(11) primary key ,
     categoryName varchar(50) CHARACTER SET UTF8MB4,
+    categoryColor varchar(40),
     categoryImage varchar(255)
 );
 
 INSERT INTO tblCategory 
-VALUES	('CA0001', 'Đồ uống có cồn', 'https://vtv1.mediacdn.vn/zoom/550_339/2019/3/4/bigstock-alcoholic-drinks-emerging-europe-1551665990593522364791.jpg'),
-		('CA0002', 'Nước giải khát', 'https://tiensinuoc.com/wp-content/uploads/2022/02/dai-ly-nuoc-giai-khat-ct-tnhh-binh-minh.jpg'),
-		('CA0003', 'Thực phẩm đóng hộp', 'https://efoodvietnam.com/wp-content/uploads/2022/11/thuc-pham-dong-hop-va-nhung-dieu-can-biet.jpg'),
-		('CA0004', 'Mì ăn liền', 'https://i.doanhnhansaigon.vn/2020/01/11/migoi-1578742010.jpg'),
-		('CA0005', 'Xả vải', 'https://cdn.tgdd.vn//Files/News/2022/06/02/730x450-(32)-845x450.jpg'),
-		('CA0006', 'Gia vị', 'https://cdn.tgdd.vn/2020/12/CookProduct/thumbcn-1200x676-9.jpg'),
-		('CA0007', 'Khăn lau miệng', 'https://cdn.tgdd.vn/Files/2022/05/24/1434536/review-khan-giay-pulppy-co-tot-khong-gia-bao-nhieu-202205240722077776.jpg'),
-        ('CA0008', 'Nước tương', 'https://daotaobeptruong.vn/wp-content/uploads/2019/07/nuoc_tuong_la_gi.png'),
-		('CA0009', 'Vở', 'https://product.hstatic.net/1000362139/product/vo_earth1_e5858e2da0b541d585370f8011bb3a27.png'),
-        ('CA0010', 'Bút', 'https://cdn3.dhht.vn/wp-content/uploads/2022/08/top-10-hang-but-ky-ten-cao-cap-5-noi-ban-but-ky-uy-tin-bia.jpg');
+VALUES	('CA0001', 'Đồ uống có cồn', 'rgba(248, 164, 76, 0.1)', 'https://vtv1.mediacdn.vn/zoom/550_339/2019/3/4/bigstock-alcoholic-drinks-emerging-europe-1551665990593522364791.jpg'),
+		('CA0002', 'Nước giải khát', 'rgba(211, 176, 224, 0.25)', 'https://tiensinuoc.com/wp-content/uploads/2022/02/dai-ly-nuoc-giai-khat-ct-tnhh-binh-minh.jpg'),
+		('CA0003', 'Thực phẩm đóng hộp', 'rgba(211, 176, 224, 0.25)', 'https://efoodvietnam.com/wp-content/uploads/2022/11/thuc-pham-dong-hop-va-nhung-dieu-can-biet.jpg'),
+		('CA0004', 'Mì ăn liền', 'rgba(248, 164, 76, 0.1)', 'https://i.doanhnhansaigon.vn/2020/01/11/migoi-1578742010.jpg'),
+		('CA0005', 'Xả vải', 'rgba(248, 164, 76, 0.1)', 'https://cdn.tgdd.vn//Files/News/2022/06/02/730x450-(32)-845x450.jpg'),
+		('CA0006', 'Gia vị', 'rgba(211, 176, 224, 0.25)', 'https://cdn.tgdd.vn/2020/12/CookProduct/thumbcn-1200x676-9.jpg'),
+		('CA0007', 'Khăn lau miệng', 'rgba(211, 176, 224, 0.25)', 'https://cdn.tgdd.vn/Files/2022/05/24/1434536/review-khan-giay-pulppy-co-tot-khong-gia-bao-nhieu-202205240722077776.jpg'),
+        ('CA0008', 'Nước tương', 'rgba(248, 164, 76, 0.1)', 'https://daotaobeptruong.vn/wp-content/uploads/2019/07/nuoc_tuong_la_gi.png'),
+		('CA0009', 'Vở', 'rgba(248, 164, 76, 0.1)', 'https://product.hstatic.net/1000362139/product/vo_earth1_e5858e2da0b541d585370f8011bb3a27.png'),
+        ('CA0010', 'Bút', 'rgba(211, 176, 224, 0.25)', 'https://cdn3.dhht.vn/wp-content/uploads/2022/08/top-10-hang-but-ky-ten-cao-cap-5-noi-ban-but-ky-uy-tin-bia.jpg');
 
 -- drop table tblCategory;
 
@@ -106,9 +109,9 @@ Create table tblProduct (
     price decimal,
     quantity int,
     stockQuantity int,
-    expirationDate datetime,
+    expirationDate date,
     unit varchar(30),
-    productDescription varchar(255) CHARACTER SET UTF8MB4,
+    productDescription varchar(400) CHARACTER SET UTF8MB4,
     categoryID varchar(11),
     wareHouseID varchar(7),
     foreign key (wareHouseID) references tblWareHouse(wareHouseID) ON DELETE CASCADE ON UPDATE CASCADE ,
@@ -116,13 +119,13 @@ Create table tblProduct (
 );
 
 INSERT INTO tblProduct 
-VALUES	('P00001', 'Sữa tươi Vinamilk 180ml', 8000, 100, 50, '2023-05-31 23:59:59', 'Hộp', 'Sữa tươi nguyên kem', 'CA0001', 'WH0001'),
-		('P00002', 'Bánh quy Oreo', 15000, 200, 80, '2024-12-31 23:59:59', 'Hộp', 'Bánh quy kem socola', 'CA0002', 'WH0002'),
-		('P00003', 'Nước ngọt Coca Cola 500ml', 12000, 150, 50, '2023-09-30 23:59:59', 'Lon', 'Nước ngọt Coca Cola', 'CA0003', 'WH0003'),
-		('P00004', 'Bia Sài Gòn 333 330ml', 15000, 100, 30, '2024-06-30 23:59:59', 'Lon', 'Bia Sài Gòn 333', 'CA0004', 'WH0004'),
-		('P00005', 'Cháo hạt dinh dưỡng Nutifood', 20000, 80, 20, '2023-11-30 23:59:59', 'Hộp', 'Cháo hạt dinh dưỡng Nutifood', 'CA0005', 'WH0005'),
-		('P00006', 'Súp đặc chế Knorr 60g', 7000, 150, 70, '2024-04-30 23:59:59', 'Gói', 'Súp đặc chế Knorr', 'CA0006', 'WH0006'),
-		('P00007', 'Sữa đặc Nestle hộp 397g', 22000, 60, 15, '2024-10-31 23:59:59', 'Hộp', 'Sữa đặc Nestle', 'CA0001', 'WH0007');
+VALUES	('P00001', 'Sữa tươi Vinamilk 180ml', 8000, 100, 50, '2023-07-31', 'Hộp', 'Sữa tươi Vinamilk 180ml là một sản phẩm sữa tươi tinh khiết và thơm ngon. Được đóng gói trong hũ nhựa tiện lợi, sữa tươi Vinamilk 180ml rất dễ dàng để bạn mang theo và thưởng thức bất cứ khi nào bạn muốn.', 'CA0001', 'WH0001'),
+		('P00002', 'Bánh quy Oreo', 15000, 200, 80, '2024-12-10', 'Hộp', 'Bánh quy Oreo là một loại bánh quy kẹo phổ biến và được yêu thích trên toàn thế giới. Với hai lớp bánh quy màu đen giữa là một lớp kem vani ngọt ngào, bánh quy Oreo mang đến sự kết hợp giữa vị ngọt, tạo nên trải nghiệm ăn rất đặc biệt.', 'CA0002', 'WH0002'),
+		('P00003', 'Nước ngọt Coca Cola 500ml', 12000, 150, 50, '2023-09-20', 'Lon', 'Coca Cola là một loại nước ngọt nổi tiếng trên toàn cầu, với hương vị ngọt ngào, hòa quyện giữa các thành phần như đường, gas và các hương liệu bí mật. Nước ngọt Coca Cola có màu đen đặc trưng và được đóng trong lon hoặc chai, mang lại cảm giác sảng khoái và tươi mát khi uống.', 'CA0003', 'WH0003'),
+		('P00004', 'Bia Sài Gòn 333 330ml', 15000, 100, 30, '2024-08-30', 'Lon', 'Bia Sài Gòn là một loại bia nổi tiếng được sản xuất tại Việt Nam. Với màu vàng óng ánh và hương vị tươi mát, bia Sài Gòn mang đến trải nghiệm thưởng thức bia đậm đà và đáng nhớ. ', 'CA0004', 'WH0004'),
+		('P00005', 'Cháo hạt dinh dưỡng Nutifood', 20000, 80, 20, '2023-11-20', 'Hộp', 'Cháo hạt dinh dưỡng Nutifood là một sản phẩm chất lượng cao dành cho trẻ em. Cháo được làm từ các hạt dinh dưỡng tự nhiên như gạo, ngô, đậu xanh, kết hợp với các thành phần giàu vitamin và khoáng chất.', 'CA0005', 'WH0005'),
+		('P00006', 'Súp đặc chế Knorr 60g', 7000, 150, 70, '2024-04-30', 'Gói', 'Súp đặc chế Knorr 60g là một sản phẩm súp tiện lợi và ngon miệng. Được đóng gói trong gói 60g, súp Knorr mang đến hương vị đậm đà và tươi ngon. Với các thành phần tinh túy và hỗn hợp gia vị đặc biệt, súp Knorr là một lựa chọn hấp dẫn để thưởng thức trong bữa ăn hàng ngày hoặc khi bạn cần một tô súp ấm nóng và thú vị.', 'CA0006', 'WH0006'),
+		('P00007', 'Sữa đặc Nestle hộp 397g', 22000, 60, 15, '2024-09-15', 'Hộp', 'Sữa đặc Nestle là một sản phẩm sữa đậm đặc giàu chất dinh dưỡng. Với hàm lượng cao về protein, canxi và các vitamin quan trọng, sữa đặc Nestle là một nguồn dinh dưỡng hữu ích cho cả trẻ em và người lớn.', 'CA0001', 'WH0007');
 
 -- drop table tblProduct;
 
@@ -258,17 +261,6 @@ VALUES	(1, 3, 'An Hải Bắc'),
         (1, 2, 'Vĩnh Trung');
 
 -- drop table tblWards;
-
-SELECT DISTINCT P.*, D.*, W.*
-FROM tblprovince AS P
-INNER JOIN tbldistrict AS D ON P.provinceID = D.provinceID
-INNER JOIN tblwards AS W ON P.provinceID = W.provinceID AND D.districtID = W.districtID;
-
-Select P.nameProvince, D.nameDistrict, W.nameWard 
-       From tblprovince as P, tbldistrict as D, tblwards as W 
-       Where P.provinceID = D.provinceID and 
-             P.provinceID = W.provinceID and
-             D.districtID = W.districtID;
 
 
 

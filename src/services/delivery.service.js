@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt');
 
 const deliveryService = {
   getProvinceService: async () => {
-    const province = await queryDb(`Select nameProvince from tblprovince `);
+    const province = await queryDb(`Select  provinceID, nameProvince from tblprovince `);
 
     if (_.isEmpty(province))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy Tỉnh/ Thành');
@@ -16,7 +16,7 @@ const deliveryService = {
   },
 
   getDistrictService: async () => {
-    const district = await queryDb(`Select nameDistrict from tbldistrict `);
+    const district = await queryDb(`Select districtID ,nameDistrict from tbldistrict `);
 
     if (_.isEmpty(district))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy Quận Huyện');
@@ -25,7 +25,7 @@ const deliveryService = {
   },
 
   getWardService: async () => {
-    const ward = await queryDb(`Select nameWard from tblwards `);
+    const ward = await queryDb(`Select WardsID, nameWard from tblwards `);
 
     if (_.isEmpty(ward))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy Phường Xã');
