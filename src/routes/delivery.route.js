@@ -6,6 +6,12 @@ router.get('/get-province',  deliveryController.getProvinceService);
 
 router.get('/get-district', deliveryController.getDistrictService);
 
-router.get('/get-ward', deliveryController.getWardService);
+router.get('/get-ward/:districtID', deliveryController.getWardService);
+
+router.post('/update-useraddress', deliveryController.updateUserAddress);
+
+router.get('/get-addresslist/:userID', deliveryController.getUserAddress);
+
+router.put('/update-addressbyid/:idAddress', deliveryController.updateAddressById);
 
 export default router;

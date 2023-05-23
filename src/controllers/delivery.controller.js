@@ -17,9 +17,27 @@ const deliveryController = {
   }),
 
   getWardService: catchAsync(async function (req, res, next) {
-    const wardList = await deliveryService.getWardService() ;
+    const wardList = await deliveryService.getWardService(req.params.districtID) ;
 
     return res.status(httpStatus.OK).send({ wardList });
+  }),
+
+  updateUserAddress: catchAsync(async function (req, res, next) {
+    const userAddress = await deliveryService.updateUserAddress(req.body) ;
+
+    return res.status(httpStatus.OK).send( userAddress );
+  }),
+
+  getUserAddress: catchAsync(async function(req, res, next) {
+    const addressList = await deliveryService.getUserAddress(req.params.userID);
+
+    return res.status(httpStatus.OK).send( addressList );
+  }),
+
+  updateAddressById: catchAsync(async function(req, res, next) {
+    const addressList = await deliveryService.updateAddressById(req.params.idAddress, req.body);
+
+    return res.status(httpStatus.OK).send( addressList );
   }),
 
 };

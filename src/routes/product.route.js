@@ -8,4 +8,9 @@ router.get('/get-productselling', productController.getProductSellingService);
 
 router.get('/get-productpopular', productController.getProductPopularService);
 
+router.get('/get-productdetail/:productID', productController.getProductDetailService);
+
+// router.post('/get-productupdatequantity/:productID', productController.getProductUpdateQuantity)
+
+
 export default router;

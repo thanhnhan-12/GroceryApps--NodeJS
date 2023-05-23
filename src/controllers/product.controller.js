@@ -21,6 +21,17 @@ const productController = {
 
     return res.status(httpStatus.OK).send({ productPopular });
   }),
+
+  getProductDetailService: catchAsync(async function (req, res, next) {
+    const {productDetail, images } = await productService.getProductDetailService(req.params.productID);
+
+    return res.status(httpStatus.OK).send({ productDetail, images });
+  }),
+
+  getProductUpdateQuantity: catchAsync(async function (req, res, next) {
+    
+  }),
+
 };
 
 export default productController;

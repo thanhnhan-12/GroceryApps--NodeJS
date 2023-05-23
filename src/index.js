@@ -8,7 +8,6 @@ import { errorConverter, errorHandler } from './middleware/error';
 
 dotenv.config();
 
-
 const app = express();
 
 // config path images
@@ -21,7 +20,7 @@ app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
-  })
+  }),
 );
 
 // v1 api routes

@@ -41,6 +41,11 @@ const defaultRoutes = [
     path: '/cart',
     route: cartRoute,
   },
+
+  {
+    path: 'delivery',
+    route: deliveryRoute,
+  },
 ];
 
 defaultRoutes.forEach((route) => {

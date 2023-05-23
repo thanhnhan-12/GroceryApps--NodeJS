@@ -7,7 +7,9 @@ var bcrypt = require('bcrypt');
 
 const deliveryService = {
   getProvinceService: async () => {
-    const province = await queryDb(`Select  provinceID, nameProvince from tblprovince `);
+    const province = await queryDb(
+      `Select  provinceID, nameProvince from tblprovince `,
+    );
 
     if (_.isEmpty(province))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy Tỉnh/ Thành');
@@ -16,7 +18,9 @@ const deliveryService = {
   },
 
   getDistrictService: async () => {
-    const district = await queryDb(`Select districtID ,nameDistrict from tbldistrict `);
+    const district = await queryDb(
+      `Select districtID ,nameDistrict from tbldistrict `,
+    );
 
     if (_.isEmpty(district))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy Quận Huyện');
@@ -24,15 +28,48 @@ const deliveryService = {
     return district;
   },
 
-  getWardService: async () => {
-    const ward = await queryDb(`Select WardsID, nameWard from tblwards `);
-
-    if (_.isEmpty(ward))
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy Phường Xã');
+  getWardService: async (districtID) => {
+    const ward = await queryDb(
+      `Select WardsID, nameWard from tblwards where districtID = ? `,
+      [districtID],
+    );
 
     return ward;
   },
 
+  updateUserAddress: async (body) => {
+    const { userNameAddress, userID, WardsID } = body;
+    console.log('Body: ', body);
+    const address = await queryDb(
+      `Insert into tblUserAddress(userNameAddress, userID, WardsID) values (?, ?, ?)  `,
+      [userNameAddress, userID, WardsID],
+    );
+
+    return address;
+  },
+  updateAddressById: async (idAddress, body) => {
+    const { userNameAddress, WardsID } = body;
+    console.log(':', body, idAddress);
+    const address = await queryDb(
+      `Update tblUserAddress set userNameAddress = ?, WardsID = ? where userAddressID = ? `,
+      [userNameAddress, WardsID, idAddress],
+    );
+
+    return address;
+  },
+
+  getUserAddress: async (userID) => {
+    const addressList = await queryDb(
+      `Select U.userAddressID, U.userNameAddress, P.nameProvince, D.nameDistrict, W.nameWard, P.provinceID as province, D.districtID as district, W.WardsID as ward 
+      from tblProvince as P, tblDistrict as D, tblWards as W , tblUserAddress as U
+      where P.provinceID = D.provinceID and D.districtID = W.districtID and W.WardsID = U.WardsID and U.userID = ?
+      Group by U.userAddressID
+      `,
+      [userID],
+    );
+
+    return addressList;
+  },
 };
 
 export default deliveryService;

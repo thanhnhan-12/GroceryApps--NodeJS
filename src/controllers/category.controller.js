@@ -9,6 +9,12 @@ const categoryController = {
 
     return res.status(httpStatus.OK).send({ categoryList });
   }),
+
+  getProductCategoryType: catchAsync(async function (req, res, next) {
+    const categoryTypeList = await categoryService.getProductCategoryType(req.params.categoryID);
+
+    return res.status(httpStatus.OK).send({ categoryTypeList });
+  }),
 };
 
 export default categoryController;
