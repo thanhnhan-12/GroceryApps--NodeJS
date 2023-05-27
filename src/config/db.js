@@ -10,6 +10,7 @@ async function queryDb(sql, params) {
     const [results] = await connection.query(sql, params);
 
     return results;
+  } catch (err) {  console.log(err);
   } finally {
     connection.release();
   }

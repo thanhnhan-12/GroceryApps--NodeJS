@@ -179,6 +179,13 @@ VALUES	('P00026', 'Vở Campus', 12000, 10, 20, NULL, NULL, 'Vở là một lo�
         ('P00053', 'Sữa Ngôi sao', 22000, 15, 19, '2024-06-18', 'Lon', 'Sữa đặc Ngôi sao Phương Nam xanh lá đậm đà đặc sánh, mang lại hương vị hài hòa, thơm béo. Sữa đặc là nguồn nguyên liệu lý tưởng dùng để pha sữa, chấm bánh mì,.. thơm ngon tuyệt vời. Kem đặc có đường Ngôi sao Phương Nam xanh lá lon 380g bí quyết cho món cà phê thơm ngon.', 'CA0011', 'WH0011' ),
         ('P00054', 'Sữa Milo', 7500, 24, 30, '2023-10-28', 'Hộp', 'Sản phẩm sữa cacao, socola thơm ngon, giàu canxi và protein giúp cho cơ thể phát triển. Đặc biệt, thương hiệu sữa ca cao lúa mạch Milo nổi tiếng rất được các bé yêu thích và tin dùng. Thùng 48 hộp thức uống lúa mạch Milo Active Go 180ml cung cấp nguồn năng lượng dồi dào cho bé hoạt động mỗi ngày.', 'CA0011', 'WH0011' );
         
+Alter table tblproduct
+add column importPrice decimal;
+Alter table tblproduct
+add column importDate date;
+Alter table tblproduct
+add column dateManufactured date;
+
 -- delete from tblproduct;
 -- drop table tblProduct;
 
@@ -528,53 +535,8 @@ Create table tblUserAddress (
 
 Select * from tblCart;
       
-     SELECT Pro.productID, Pro.productName, Pro.quantity, Pro.unit, Pro.price, Pro.expirationDate, Img.imageURL, C.categoryName
-FROM tblproduct AS Pro
-JOIN tblcategory AS C ON Pro.categoryID = C.categoryID
-JOIN (
-    SELECT productID, MAX(imageURL) AS imageURL
-    FROM tblimages
-    GROUP BY productID
-) AS Img ON Pro.productID = Img.productID
-WHERE C.categoryID = 'CA0001'
-GROUP BY Pro.productID;
-
-DELIMITER //
-
-CREATE FUNCTION updateCartQuantity(productID varchar(7), userID INT, quantityChange INT) RETURNS INT
-BEGIN
-    DECLARE currentQuantity INT;
-    -- Lấy số lượng hiện tại của sản phẩm trong giỏ hàng
-    SELECT quantity INTO currentQuantity
-    FROM tblcart
-    WHERE productID = productID AND userID = userID;
-    -- Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
-    IF currentQuantity IS NULL THEN
-        INSERT INTO tblcart (productID, userID, quantity)
-        VALUES (productID, userID, quantityChange);
-    ELSE
-        -- Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng
-        SET currentQuantity = currentQuantity + quantityChange;
-        -- Nếu số lượng mới là 0 hoặc âm, xóa sản phẩm khỏi giỏ hàng
-        IF currentQuantity <= 0 THEN
-            DELETE FROM tblcart
-            WHERE productID = productID AND userID = userID;
-        ELSE
-            -- Cập nhật số lượng mới cho sản phẩm trong giỏ hàng
-            UPDATE tblcart
-            SET quantity = currentQuantity
-            WHERE productID = productID AND userID = userID;
-        END IF;
-    END IF;
-    
-    -- Trả về số lượng sau khi cập nhật
-    RETURN currentQuantity;
-END //
-
-DELIMITER ;
-
-
-SELECT updateCartQuantity('P00001', 2, 5);
+Alter table tblproduct modify productID varchar(50);
+Alter table tblimages modify productID varchar(50);
 
 
 

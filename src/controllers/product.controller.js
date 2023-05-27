@@ -23,15 +23,30 @@ const productController = {
   }),
 
   getProductDetailService: catchAsync(async function (req, res, next) {
-    const {productDetail, images } = await productService.getProductDetailService(req.params.productID);
+    const { productDetail, images } =
+      await productService.getProductDetailService(req.params.productID);
 
     return res.status(httpStatus.OK).send({ productDetail, images });
   }),
 
-  getProductUpdateQuantity: catchAsync(async function (req, res, next) {
-    
+  createProduct: catchAsync(async function (req, res, next) {
+    const files = req.files;
+    console.log("", req.files);
+    console.log("", req.file);
+
+    const createNewProduct = await productService.createProduct(
+      req.body,
+      files,
+    );
+
+    return res.status(httpStatus.OK).send(createNewProduct);
   }),
 
+  getListAllProduct: catchAsync(async function (req, res, next) {
+    const listAllProduct = await productService.getListAllProduct();
+
+    return res.status(httpStatus.OK).send(listAllProduct);
+  }),
 };
 
 export default productController;

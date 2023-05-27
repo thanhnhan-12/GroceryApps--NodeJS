@@ -14,4 +14,6 @@ router.get('/get-addresslist/:userID', deliveryController.getUserAddress);
 
 router.put('/update-addressbyid/:idAddress', deliveryController.updateAddressById);
 
+router.delete('/delete-useraddress', deliveryController.deleteUserAddress);
+
 export default router;

@@ -4,6 +4,7 @@ import httpStatus from 'http-status';
 
 var _ = require('lodash');
 var bcrypt = require('bcrypt');
+const uniqid = require('uniqid');
 
 const productService = {
   getProductService: async () => {
@@ -66,6 +67,71 @@ const productService = {
     if (_.isEmpty(productDetail))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy sản phẩm');
     return { productDetail: productDetail[0], images };
+  },
+
+  getListAllProduct: async () => {
+    const listAllProduct = await queryDb(
+      `Select P.productName, P.price, P.quantity, P.expirationDate, P.unit, P.productDescription, P.categoryID, I.imageURL 
+      from tblproduct as P, tblimages as I 
+      where P.productID = I.productID 
+      Group by P.productID;
+      `,
+    );
+
+    return listAllProduct;
+  },
+
+  createProduct: async (body, files) => {
+    const {
+      productName,
+      price,
+      quantity,
+      expirationDate,
+      unit,
+      productDescription,
+      importDate,
+      importPrice,
+      categoryID,
+      dateManufactured,
+    } = body;
+
+    const productID = uniqid();
+
+    console.log('Files: ', files);
+
+    await queryDb(
+      `Insert into tblProduct(productID, productName, price, quantity, expirationDate, unit, 
+        productDescription, importDate, importPrice, categoryID, dateManufactured) 
+      values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  `,
+      [
+        productID,
+        productName,
+        price,
+        quantity,
+        expirationDate,
+        unit,
+        productDescription,
+        importDate,
+        importPrice,
+        categoryID,
+        dateManufactured,
+      ],
+    );
+
+    let insertStatement = 'insert into tblImages(imageURL, productID) values ';
+
+    for (let i = 0; i < files.length; i++) {
+      const { filename } = files[i];
+      insertStatement += `('${filename}', '${productID}')`;
+
+      if (i !== files.length - 1) {
+        insertStatement += ', ';
+      }
+    }
+
+    const orderDetail = await queryDb(insertStatement);
+
+    return body;
   },
 };
 

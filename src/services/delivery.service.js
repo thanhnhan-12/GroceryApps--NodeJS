@@ -70,6 +70,28 @@ const deliveryService = {
 
     return addressList;
   },
+
+  deleteUserAddress: async (query) => {
+    const { userAddressID, userID } = query;
+
+    const addressList = await queryDb(
+      ` Select * from tblUserAddress where userAddressID = ? and userID = ?
+      `,
+      [userAddressID, userID],
+    );
+
+    if (_.isEmpty(addressList)) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Không tồn tại địa chỉ');
+    } else {
+      const addressList = await queryDb(
+        `Delete from tbluseraddress where userAddressID = ? and userID = ? `,
+        [userAddressID, userID],
+      );
+    }
+  },
+
+
+
 };
 
 export default deliveryService;
