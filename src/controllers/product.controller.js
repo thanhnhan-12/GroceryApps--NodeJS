@@ -31,8 +31,8 @@ const productController = {
 
   createProduct: catchAsync(async function (req, res, next) {
     const files = req.files;
-    console.log("", req.files);
-    console.log("", req.file);
+    // console.log("", req.files);
+    // console.log("", req.file);
 
     const createNewProduct = await productService.createProduct(
       req.body,
@@ -46,6 +46,15 @@ const productController = {
     const listAllProduct = await productService.getListAllProduct();
 
     return res.status(httpStatus.OK).send(listAllProduct);
+  }),
+
+  updateProductById: catchAsync(async function (req, res, next) {
+    const productList = await productService.updateProductById(
+      req.params.idProduct,
+      req.body,
+    );
+
+    return res.status(httpStatus.OK).send(productList);
   }),
 };
 

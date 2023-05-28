@@ -47,9 +47,10 @@ const deliveryService = {
 
     return address;
   },
+
   updateAddressById: async (idAddress, body) => {
     const { userNameAddress, WardsID } = body;
-    console.log(':', body, idAddress);
+    // console.log('Update: ', body, idAddress);
     const address = await queryDb(
       `Update tblUserAddress set userNameAddress = ?, WardsID = ? where userAddressID = ? `,
       [userNameAddress, WardsID, idAddress],

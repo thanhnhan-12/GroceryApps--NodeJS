@@ -499,7 +499,6 @@ INSERT INTO tblWards(provinceID, districtID, nameWard)
 VALUES (1, 6, 'Khuê Trung'), (1, 6, 'Khuê Thượng'), (1, 6, 'Hòa Phát'), (1, 6, 'Hòa An'), (1, 6, 'Hòa Thọ Đông'), (1, 6, 'Hòa Thọ Tây');
 
 
-
 -- drop table tblWards;
 
 -- TABLE CART

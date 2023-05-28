@@ -22,4 +22,6 @@ router.post(
 
 router.get('/get-listallproduct', productController.getListAllProduct);
 
+router.put('/update-productbyid/:idProduct', productController.updateProductById);
+
 export default router;

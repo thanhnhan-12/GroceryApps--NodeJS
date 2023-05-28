@@ -71,7 +71,7 @@ const productService = {
 
   getListAllProduct: async () => {
     const listAllProduct = await queryDb(
-      `Select P.productName, P.price, P.quantity, P.expirationDate, P.unit, P.productDescription, P.categoryID, I.imageURL 
+      `Select P.productID, P.productName, P.price, P.quantity, P.expirationDate, P.unit, P.productDescription, P.categoryID, P.importDate, I.imageURL 
       from tblproduct as P, tblimages as I 
       where P.productID = I.productID 
       Group by P.productID;
@@ -129,9 +129,49 @@ const productService = {
       }
     }
 
-    const orderDetail = await queryDb(insertStatement);
+    const insertImg = await queryDb(insertStatement);
 
     return body;
+  },
+
+  updateProductById: async (idProduct, body) => {
+    const {
+      productName,
+      price,
+      quantity,
+      expirationDate,
+      unit,
+      productDescription,
+      importDate,
+      importPrice,
+      categoryID,
+      dateManufactured,
+    } = body;
+
+    console.log('Update: ', body, idProduct);
+
+    const product = await queryDb(
+      `Update tblproduct 
+      set productName = ?, price = ?, quantity = ?, expirationDate = ?, 
+          unit = ?, productDescription = ?, importDate = ?, importPrice = ?, 
+          categoryID = ?, dateManufactured = ?
+      where productID = ? `,
+      [
+        productName,
+        price,
+        quantity,
+        expirationDate,
+        unit,
+        productDescription,
+        importDate,
+        importPrice,
+        categoryID,
+        dateManufactured,
+        idProduct,
+      ],
+    );
+
+    return product;
   },
 };
 
