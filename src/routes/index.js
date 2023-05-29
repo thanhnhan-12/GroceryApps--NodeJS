@@ -4,6 +4,7 @@ import categoryRoute from './category.route';
 import deliveryRoute from './delivery.route';
 import suppilerRoute from './supplier.route';
 import cartRoute from './cart.route';
+import adminRoute from './admin.route';
 
 import express from 'express';
 
@@ -43,8 +44,13 @@ const defaultRoutes = [
   },
 
   {
-    path: 'delivery',
+    path: '/delivery',
     route: deliveryRoute,
+  },
+
+  {
+    path: '/admin',
+    route: adminRoute,
   },
 ];
 

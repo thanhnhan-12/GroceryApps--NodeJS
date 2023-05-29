@@ -532,6 +532,16 @@ Create table tblUserAddress (
         
 -- drop table tblUserAddress;
 
+-- TABLE Role
+Create table tblRole (
+	roleID int auto_increment primary key,
+    roleName varchar(30) CHARACTER SET UTF8MB4 NOT NULL,
+    userID int NOT NULL,
+    Foreign key (userID) references tblUser(userID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- drop table tblRole;
+
 Select * from tblCart;
       
 Alter table tblproduct modify productID varchar(50);
