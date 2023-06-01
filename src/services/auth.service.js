@@ -8,10 +8,10 @@ var bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const authService = {
-  login: async (body, id_role) => {
+  login: async (body) => {
     const { email, password } = body;
     console.log({body});
-    const user = await queryDb("select * from tbluser where email=?",[email]);
+    const user = await queryDb("select * from tbluser where email= ?",[email]);
     console.log({user})
     if (_.isEmpty(user))
       throw new ApiError(
@@ -34,9 +34,9 @@ const authService = {
   },
 
   register: async (body) => {
-    const { email, fullName, password } = body;
+    const { email, fullName, password, roleID } = body;
     console.log("Body: " + body);
-    const user = await queryDb('select * from tbluser where email=?', [
+    const user = await queryDb('select * from tbluser where email= ?', [
       email,
     ]);
     if (!_.isEmpty(user))
@@ -48,11 +48,11 @@ const authService = {
     console.log({hashPassword});
 
     const rows = await queryDb(
-      'insert into tbluser(email, fullName, passWord) values(?,?,?)',
-      [email, fullName, hashPassword]
+      'insert into tbluser(email, fullName, passWord, roleID) values(?, ?, ?, ?)',
+      [email, fullName, hashPassword, roleID]
     );
     if (rows.insertId >= 0) {
-      const users = await queryDb('select * from tbluser where email=?', [
+      const users = await queryDb('select * from tbluser where email= ?', [
         email,
       ]);
       const { password, ...orther } = users[0];

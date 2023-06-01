@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/get-alluser', adminController.getAllUser);
 
+router.put(`/update-accountbyid/:idAccount`, adminController.updateAccountById);
+
 export default router;

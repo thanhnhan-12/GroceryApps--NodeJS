@@ -5,6 +5,8 @@ import deliveryRoute from './delivery.route';
 import suppilerRoute from './supplier.route';
 import cartRoute from './cart.route';
 import adminRoute from './admin.route';
+import userRoute from './user.route';
+import orderRoute from './order.route';
 
 import express from 'express';
 
@@ -46,6 +48,16 @@ const defaultRoutes = [
   {
     path: '/delivery',
     route: deliveryRoute,
+  },
+
+  {
+    path: '/order',
+    route: orderRoute,
+  },
+
+  {
+    path: '/user',
+    route: userRoute,
   },
 
   {

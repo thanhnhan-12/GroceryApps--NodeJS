@@ -4,6 +4,18 @@ Use GroceryApps;
 
 -- drop database groceryapps;
 
+-- TABLE Role
+Create table tblRole (
+	roleID int auto_increment primary key,
+    roleName varchar(30) CHARACTER SET UTF8MB4 NOT NULL
+);
+
+insert into tblRole (roleName)
+Values	('Admin'),
+		('Người dùng');
+        
+-- drop table tblRole;
+
 -- TABLE USER
 Create table tblUser(
 	userID int auto_increment primary key,
@@ -13,7 +25,9 @@ Create table tblUser(
     email varchar(255) unique,
     phone varchar(11) unique ,
     address varchar(30) CHARACTER SET UTF8MB4 ,
-    birthday date 
+    birthday date ,
+    roleID int not null,
+    foreign key (roleID) references tblRole(roleID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO tbluser(userID, userName, passWord, fullName, email, phone, address, birthday)
@@ -22,6 +36,22 @@ VALUES	('Nhan', 'Nhan', 'Nhan T', 'Nhan@gmail.com', NULL, NULL, NULL, NULL),
         ('Thien', 'Thien', 'Thien T', 'Thien@gmail.com', NULL, NULL, NULL, NULL),
         ('Huy', 'Huy', 'Huy Q', 'ancelotti@gmail.com', NULL, NULL, NULL, NULL),
         ('Tien', 'Tien', 'Tien T', 'tenhag@gmail.com', NULL, NULL, NULL, NULL);
+        
+delete from tbluser;
+
+-- Thêm cột roleID vào bảng tblUser
+ALTER TABLE tblUser
+ADD COLUMN roleID INT ;
+
+-- Thêm ràng buộc (constraint) để tham chiếu đến bảng tblRole
+ALTER TABLE tblUser
+ADD CONSTRAINT fk_roleID
+FOREIGN KEY (roleID) REFERENCES tblRole(roleID);
+
+-- ALTER TABLE tblUser
+-- DROP FOREIGN KEY fk_roleID;
+-- ALTER TABLE tblUser
+-- DROP COLUMN roleID;
 
 -- Select * from tblUser;
 
@@ -201,6 +231,9 @@ Create table tblOrder (
     Foreign key (userID) references tblUser(userID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+Alter table tblorder
+modify column deliveryDate datetime
+-- delete from tblOrder;
 -- drop table tblOrder;
 
 -- TABLE ORDER DETAIL
@@ -531,16 +564,6 @@ Create table tblUserAddress (
 );
         
 -- drop table tblUserAddress;
-
--- TABLE Role
-Create table tblRole (
-	roleID int auto_increment primary key,
-    roleName varchar(30) CHARACTER SET UTF8MB4 NOT NULL,
-    userID int NOT NULL,
-    Foreign key (userID) references tblUser(userID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
--- drop table tblRole;
 
 Select * from tblCart;
       

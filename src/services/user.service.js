@@ -5,10 +5,32 @@ import httpStatus from 'http-status';
 var _ = require('lodash');
 var bcrypt = require('bcrypt');
 
-const userService = () => {
-  return (
-    <div>userService</div>
-  )
-}
+const userService = {
+  getUserInfor: async (userID) => {
+    const userInfor = await queryDb(
+      `Select * from tblUser where userID = ?  `,
+      [userID],
+    );
 
-export default userService
+    return userInfor;
+  },
+
+  updateUserInforById: async (userID, body) => {
+    const { userName, passWord, fullName, email, phone, birthday } = body;
+
+    console.log('Update: ', body, userID);
+
+    const userInforById = await queryDb(
+      `Update tblUser 
+      set userName = ?, passWord = ?, fullName = ?, 
+          email = ?, phone = ?, birthday = ? 
+      where userID = ?
+      `,
+      [userName, passWord, fullName, email, phone, birthday, userID],
+    );
+
+    return userInforById;
+  },
+};
+
+export default userService;

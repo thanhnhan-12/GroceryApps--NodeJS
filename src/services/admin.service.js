@@ -14,6 +14,11 @@ const adminService = {
 
     return userList;
   },
+
+  updateAccountById: async (idAccount, body) => {
+    const {  } = body;
+  },
+
 };
 
 export default adminService;

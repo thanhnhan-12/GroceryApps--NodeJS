@@ -9,6 +9,15 @@ const adminController = {
 
     return res.status(httpStatus.OK).send(userList);
   }),
+
+  updateAccountById: catchAsync(async function (req, res, next) {
+    const accountList = await adminService.updateAccountById(
+      req.params.idAccount,
+      req.body,
+    );
+
+    return res.status(httpStatus.OK).send(accountList);
+  }),
 };
 
 export default adminController;
