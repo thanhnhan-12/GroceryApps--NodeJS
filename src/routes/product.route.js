@@ -1,6 +1,6 @@
 import express from 'express';
 import productController from '../controllers/product.controller';
-import  upload  from '../middleware/upload';
+import upload from '../middleware/upload';
 const router = express.Router();
 
 router.get('/get-product', productController.getProductService);
@@ -16,12 +16,17 @@ router.get(
 
 router.post(
   '/createproduct',
-  upload("medias").array('medias', 12),
+  upload('medias').array('medias', 12),
   productController.createProduct,
 );
 
 router.get('/get-listallproduct', productController.getListAllProduct);
 
-router.put('/update-productbyid/:idProduct', productController.updateProductById);
+router.put(
+  '/update-productbyid/:idProduct',
+  productController.updateProductById,
+);
+
+router.get('/find-productbyname/:productName', productController.findProductByName);
 
 export default router;

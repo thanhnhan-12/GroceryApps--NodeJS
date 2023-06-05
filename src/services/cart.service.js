@@ -27,7 +27,8 @@ const cartService = {
       `Select * from tblcart where productID = ? and userID = ? `,
       [productID, userID],
     );
-    const newQuantity = cart[0]?.quantity + quantity;
+
+    console.log({ cart });
 
     if (_.isEmpty(cart)) {
       const cart = await queryDb(
@@ -35,8 +36,24 @@ const cartService = {
         [productID, userID, quantity],
       );
     } else {
-      console.log(newQuantity);
-      const cart = await queryDb(
+      const cartitem = await queryDb(
+        `Select * from tblcart where productID = ? and userID = ? `,
+        [productID, userID],
+      );
+      let product = await queryDb(
+        `Select * from tblproduct where productID = ? `,
+        [productID],
+      );
+
+      const nowProductQuantity = product[0].quantity;
+      const nowCartQuantity = cartitem[0].quantity + quantity;
+      console.log({ nowCartQuantity, nowProductQuantity });
+      if (nowProductQuantity < nowCartQuantity) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Lỗi Số lượng');
+      }
+
+      const newQuantity = cartitem[0]?.quantity + quantity;
+      await queryDb(
         `Update tblCart set quantity = ? where productID = ? and userID = ? `,
         [newQuantity, productID, userID],
       );
@@ -109,7 +126,7 @@ const cartService = {
       `SELECT * FROM tblOrder WHERE orderID = LAST_INSERT_ID();`,
     );
 
-    console.log('Select ', select);
+    // console.log('Select ', select);
 
     const orderID = select[0].orderID;
 
@@ -119,6 +136,18 @@ const cartService = {
     for (let i = 0; i < productCart.length; i++) {
       const { productID, quantity } = productCart[i];
       insertStatement += `('${productID}', ${quantity}, ${orderID} )`;
+
+      let update = await queryDb(
+        `Select * from tblproduct where productID = ? `,
+        [productID],
+      );
+      // console.log("Log", update);
+      const newQuantity = update[0].quantity - quantity;
+
+      await queryDb(`Update tblproduct set quantity = ? where productID = ? `, [
+        newQuantity,
+        productID,
+      ]);
 
       if (i !== productCart.length - 1) {
         insertStatement += ', ';

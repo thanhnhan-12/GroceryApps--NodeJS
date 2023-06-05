@@ -12,6 +12,7 @@ const productService = {
       `Select Pro.productID, productName, price, expirationDate, unit, Pro.quantity, wh.dateImport, Img.imageURL 
       from tblproduct as Pro , tblwarehouse as Wh, tblimages as Img 
       where Wh.wareHouseID = Pro.wareHouseID and Pro.productID = Img.productID 
+      and Pro.quantity > 0
       Group by Pro.productID
       Order By dateImport DESC Limit 10; `,
     );
@@ -172,6 +173,19 @@ const productService = {
     );
 
     return product;
+  },
+
+  findProductByName: async (productName) => {
+    const productList = await queryDb(
+      `SELECT Pro.productID, productName, price, expirationDate, unit, Pro.quantity, MAX(Img.imageURL) AS imageURL
+      FROM tblproduct AS Pro
+      JOIN tblimages AS Img ON Pro.productID = Img.productID
+      where productName LIKE '%${productName}%' 
+      GROUP BY Pro.productID;
+      `,
+    );
+
+    return productList;
   },
 };
 

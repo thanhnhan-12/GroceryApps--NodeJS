@@ -56,6 +56,12 @@ const productController = {
 
     return res.status(httpStatus.OK).send(productList);
   }),
+
+  findProductByName: catchAsync(async function (req, res, next) {
+    const productList = await productService.findProductByName(req.params.productName);
+
+    return res.status(httpStatus.OK).send(productList);
+  }),
 };
 
 export default productController;

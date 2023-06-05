@@ -75,7 +75,7 @@ VALUES 	(1, 'Coca Cola', '123 Main St, City A', '033251649', 'abc@company.com', 
 		(4, 'Wabi2b', '1010 Industrial Blvd, City D', '0935662583', 'supplies@co.com', 'https://play-lh.googleusercontent.com/HRRTDjyiT-T09g1V9bSjb_ZuL9-ZuMcl_oW45Bn5u1ZW0JHpEr6yA0DwRV1cOAAALiUK'),
 		(5, 'Omachi', '555 Fifth Ave, City E', '0905267489', 'global@enterprises.com', 'https://logowik.com/content/uploads/images/omachi-saga7671.logowik.com.webp' );
 		
--- drop table tblSupplier;
+ drop table tblSupplier;
 
 -- TABLE CATEGORY
 Create table tblCategory (
@@ -232,7 +232,7 @@ Create table tblOrder (
 );
 
 Alter table tblorder
-modify column deliveryDate datetime
+modify column deliveryDate datetime;
 -- delete from tblOrder;
 -- drop table tblOrder;
 
