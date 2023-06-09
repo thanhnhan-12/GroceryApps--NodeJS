@@ -25,29 +25,29 @@ const productService = {
 
   getProductSellingService: async () => {
     const productSelling = await queryDb(
-      `SELECT pro.productID, pro.productName, price, expirationDate, unit, Pro.quantity, MAX(tblimages.imageURL) AS imageURL
-      FROM tblimages, tblproduct AS pro
-      LEFT JOIN (SELECT productId, COUNT(Od.quantity) AS quantity
-      FROM tblorderdetail AS Od
-      GROUP BY productId) AS limitP ON limitP.productId = pro.productId
-      WHERE tblimages.productId = pro.productID
-      GROUP BY pro.productID,pro.productName,price,expirationDate,unit,Pro.quantity;
+      `select pro.productID , pro.productName, price, expirationDate, unit, tblimages.imageURL, LimitP.quantity
+      from tblimages, tblproduct as pro
+      left join (select productId, SUM(Od.quantity) as quantity from tblorderdetail AS Od group by productId) as limitP 
+      on limitP.productId = pro.productId
+      where tblimages.productId = pro.productID 
+      group by pro.productID, pro.productName
+      order By LimitP.quantity desc
+      ;
        `,
     );
 
     if (_.isEmpty(productSelling))
       throw new ApiError(httpStatus.BAD_REQUEST, 'Không tìm thấy sản phẩm');
-    return productSelling;
+    return productSelling.filter(item => item.quantity != null);
   },
 
   getProductPopularService: async () => {
     const productPopular = await queryDb(
-      `SELECT Pro.productID, productName, price, expirationDate, unit, Pro.quantity, COUNT(Od.quantity) AS quantity_sold, MAX(Img.imageURL) AS imageURL
+      `SELECT Pro.productID, productName, price, expirationDate, unit, Pro.quantity, MAX(Img.imageURL) AS imageURL
       FROM tblproduct AS Pro
       JOIN tblorderdetail AS Od ON Pro.productID = Od.productID
       JOIN tblimages AS Img ON Pro.productID = Img.productID
       GROUP BY Pro.productID, productName, price, expirationDate, unit, Pro.quantity
-      ORDER BY quantity_sold DESC
       LIMIT 10;`,
     );
 

@@ -562,6 +562,10 @@ Create table tblUserAddress (
     Foreign key (userID) references tblUser(userID) ON DELETE CASCADE ON UPDATE CASCADE,
     Foreign key (WardsID) references tblWards(WardsID) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+ALTER TABLE tblOrder
+ADD COLUMN userAddressID INT,
+ADD FOREIGN KEY (userAddressID) REFERENCES tblUserAddress(userAddressID) ON DELETE CASCADE ON UPDATE CASCADE;
         
 -- drop table tblUserAddress;
 
@@ -569,6 +573,8 @@ Select * from tblCart;
       
 Alter table tblproduct modify productID varchar(50);
 Alter table tblimages modify productID varchar(50);
+Alter table tblCart modify productID varchar(50);
+Alter table tblOrderDetail modify productID varchar(50);
 
 
 

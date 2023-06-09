@@ -16,12 +16,27 @@ const orderService = {
   },
 
   getAllUserOrders: async (orderStatus) => {
+    const orderList = [];
+
     const userOrderList = await queryDb(
-      `Select orderID,orderStatus, totalPrice, orderDate, deliveryDate from tblOrder where orderStatus = ? `,
+      `Select O.orderID, O.orderStatus, O.totalPrice, O.orderDate, O.deliveryDate, 
+      U.fullName, U.phone, UD.userNameAddress
+      from tblOrder as O, tblUser as U, tblUserAddress as UD
+      where U.userID = O.userID and U.userID = UD.userID and O.userAddressID = UD.userAddressID and orderStatus = ? `,
       [orderStatus],
     );
 
-    return userOrderList;
+    for (let i = 1; i < userOrderList.length; i++) {
+      const orderDetails = await queryDb(
+        `Select Pro.productName, Pro.quantity, Pro.price from tblOrderDetail as OD, tblProduct as Pro where OD.productID = Pro.productID and OD.orderID = ? `,
+        [userOrderList[i].orderID],
+      );
+
+      orderList.push({ ...userOrderList[i], orderDetails });
+      // console.log("Log: ", orderDetail);
+    }
+
+    return orderList;
   },
 
   updateListOrderStatus: async (body) => {

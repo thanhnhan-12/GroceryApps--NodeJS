@@ -18,6 +18,12 @@ const adminController = {
 
     return res.status(httpStatus.OK).send(accountList);
   }),
+
+  getStatistical: catchAsync(async function (req, res, next) {
+    const statistical = await adminService.getStatistical() ;
+
+    return res.status(httpStatus.OK).send(statistical );
+  }),
 };
 
 export default adminController;

@@ -7,4 +7,5 @@ router.get('/get-alluser', adminController.getAllUser);
 
 router.put(`/update-accountbyid/:idAccount`, adminController.updateAccountById);
 
+router.get(`/get-statistical`, adminController.getStatistical);
 export default router;

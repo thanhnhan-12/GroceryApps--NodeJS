@@ -34,7 +34,7 @@ const authService = {
   },
 
   register: async (body) => {
-    const { email, fullName, password, roleID } = body;
+    const { email, fullName, password, phone, roleID = 2} = body;
     console.log("Body: " + body);
     const user = await queryDb('select * from tbluser where email= ?', [
       email,
@@ -48,8 +48,8 @@ const authService = {
     console.log({hashPassword});
 
     const rows = await queryDb(
-      'insert into tbluser(email, fullName, passWord, roleID) values(?, ?, ?, ?)',
-      [email, fullName, hashPassword, roleID]
+      'insert into tbluser(email, fullName, passWord, phone, roleID) values(?, ?, ?, ?, ?)',
+      [email, fullName, hashPassword, phone, roleID]
     );
     if (rows.insertId >= 0) {
       const users = await queryDb('select * from tbluser where email= ?', [

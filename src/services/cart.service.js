@@ -115,11 +115,11 @@ const cartService = {
     const payMethod = 'Tiền mặt';
     const orderDate = new Date();
 
-    const { totalPrice, userID, productCart } = body;
+    const { totalPrice, userID, productCart, userAddressID } = body;
 
     const order = await queryDb(
-      `Insert into tblorder(orderStatus, payMethod, totalPrice, orderDate, userID) values(?, ?, ?, ?, ?); `,
-      [orderStatus, payMethod, totalPrice, orderDate, userID],
+      `Insert into tblorder(orderStatus, payMethod, totalPrice, orderDate, userID, userAddressID) values(?, ?, ?, ?, ?, ?); `,
+      [orderStatus, payMethod, totalPrice, orderDate, userID, userAddressID],
     );
 
     const select = await queryDb(
