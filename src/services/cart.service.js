@@ -144,6 +144,8 @@ const cartService = {
       // console.log("Log", update);
       const newQuantity = update[0].quantity - quantity;
 
+      console.log("Log: ", newQuantity);
+
       await queryDb(`Update tblproduct set quantity = ? where productID = ? `, [
         newQuantity,
         productID,

@@ -5,6 +5,8 @@ import httpStatus from 'http-status';
 var _ = require('lodash');
 var bcrypt = require('bcrypt');
 
+const saltRounds = 10;
+
 const userService = {
   getUserInfor: async (userID) => {
     const userInfor = await queryDb(
@@ -16,17 +18,17 @@ const userService = {
   },
 
   updateUserInforById: async (userID, body) => {
-    const { userName, passWord, fullName, email, phone, birthday } = body;
+    const { userName, fullName, email, phone, birthday } = body;
 
     console.log('Update: ', body, userID);
 
     const userInforById = await queryDb(
       `Update tblUser 
-      set userName = ?, passWord = ?, fullName = ?, 
+      set userName = ?, fullName = ?, 
           email = ?, phone = ?, birthday = ? 
       where userID = ?
       `,
-      [userName, passWord, fullName, email, phone, birthday, userID],
+      [userName, fullName, email, phone, birthday, userID],
     );
 
     return userInforById;
